@@ -28,6 +28,11 @@ public class RandomEquation : MonoBehaviour
 
 
     //Player Pref Setting Variables
+    //----General
+    int addEquations;
+    int subEquations;
+    int multEquations;
+    int divEquations;
     //----Easy
     int correctAnswersEasy;
     int incorrectAnswersEasy;
@@ -66,6 +71,12 @@ public class RandomEquation : MonoBehaviour
         incorrectAnswersHard = PlayerPrefs.GetInt("IncorrectAnswersHard");
         entryClearsHard = PlayerPrefs.GetInt("EntryClearsHard");
         playerGradeHard = PlayerPrefs.GetFloat("PlayerGradeHard");
+
+        addEquations = PlayerPrefs.GetInt("Addition");
+        subEquations = PlayerPrefs.GetInt("Subtraction");
+        multEquations = PlayerPrefs.GetInt("Multiplication");
+        divEquations = PlayerPrefs.GetInt("Division");
+
 
         onStartGameAddition();
     }
@@ -114,16 +125,134 @@ public class RandomEquation : MonoBehaviour
 
     void onStartGameSubtraction()
     {
-
+        //Always clear input field before new question
         clearInput();
 
-        randomNum1 = Random.Range(5, 10);
-        randomNum2 = Random.Range(0, 5);
 
-        subAnswer = randomNum1 - randomNum2;
+        //Different Questions Generated Based on Difficulty Choice
+        //-----Easy Question: subtraction b/w 2 random numbers from 0 to 9
+        if (PlayerPrefs.GetInt("GameDifficulty") == 0)
+        {
+            randomNum1 = Random.Range(5, 10);
+            randomNum2 = Random.Range(0, 5);
 
-        equationText.text = randomNum1 + " - " + randomNum2;
+            subAnswer = randomNum1 - randomNum2;
+       
+            equationText.text = randomNum1 + " - " + randomNum2;
+        }
 
+        //-----Medium Question: subtraction b/w 2 random numbers from 50 to 99 and 0 to 49
+        if (PlayerPrefs.GetInt("GameDifficulty") == 1)
+        {
+            randomNum1 = Random.Range(50, 100);
+            randomNum2 = Random.Range(0, 50);
+
+            subAnswer = randomNum1 - randomNum2;
+
+            equationText.text = randomNum1 + " - " + randomNum2;
+        }
+
+        //-----Hard Question: subtraction b/w 3 random numbers from 50 to 99; 10 to 49; 0 to 9
+        if (PlayerPrefs.GetInt("GameDifficulty") == 2)
+        {
+            randomNum1 = Random.Range(50, 100);
+            randomNum2 = Random.Range(10, 50);
+            randomNum3 = Random.Range(0, 10);
+
+            subAnswer = randomNum1 - randomNum2 - randomNum3;
+
+            equationText.text = randomNum1 + " - " + randomNum2 + " - " + randomNum3;
+
+        }
+    }
+
+    void onStartGameMultiplication()
+    {
+        //Always clear input field before new question
+        clearInput();
+
+
+        //Different Questions Generated Based on Difficulty Choice
+        //-----Easy Question: multiplication b/w 2 random numbers from 0 to 9
+        if (PlayerPrefs.GetInt("GameDifficulty") == 0)
+        {
+            randomNum1 = Random.Range(0, 10);
+            randomNum2 = Random.Range(0, 10);
+
+            subAnswer = randomNum1 * randomNum2;
+
+            equationText.text = randomNum1 + " x " + randomNum2;
+        }
+
+        //-----Medium Question: multiplication b/w 2 random numbers from 50 to 99 and 0 to 49
+        if (PlayerPrefs.GetInt("GameDifficulty") == 1)
+        {
+            randomNum1 = Random.Range(0, 10);
+            randomNum2 = Random.Range(0, 100);
+
+            subAnswer = randomNum1 * randomNum2;
+
+            equationText.text = randomNum1 + " x " + randomNum2;
+        }
+
+        //-----Hard Question: multiplication b/w 3 random numbers from 50 to 99; 10 to 49; 0 to 9
+        if (PlayerPrefs.GetInt("GameDifficulty") == 2)
+        {
+            randomNum1 = Random.Range(0, 10);
+            randomNum2 = Random.Range(0, 50);
+            randomNum3 = Random.Range(0, 10);
+
+            subAnswer = randomNum1 * (randomNum2 * randomNum3);
+
+            equationText.text = randomNum1 + " x " + "(" + randomNum2 + " x " + randomNum3 + ")";
+
+        }
+    }
+
+
+    //============================================
+    //---------------NEEDS TWEAKING---------------
+    void onStartGameDivision()
+    {
+        //Always clear input field before new question
+        clearInput();
+
+
+        //Different Questions Generated Based on Difficulty Choice
+        //-----Easy Question: division b/w 2 random numbers from 10 to 20 and 1 to 10
+        if (PlayerPrefs.GetInt("GameDifficulty") == 0)
+        {
+            randomNum1 = Random.Range(10, 21);
+            randomNum2 = Random.Range(1, 11);
+
+            subAnswer = randomNum1 / randomNum2;
+
+            equationText.text = randomNum1 + " / " + randomNum2;
+        }
+
+        //-----Medium Question: division b/w 2 random numbers from 10 to 100 and 1 to 10
+        if (PlayerPrefs.GetInt("GameDifficulty") == 1)
+        {
+            randomNum1 = Random.Range(10, 101);
+            randomNum2 = Random.Range(1, 11);
+
+            subAnswer = randomNum1 * randomNum2;
+
+            equationText.text = randomNum1 + " / " + randomNum2;
+        }
+
+        //-----Hard Question: division b/w 3 random numbers from 100 to 500; 10 to 50; 1 to 10
+        if (PlayerPrefs.GetInt("GameDifficulty") == 2)
+        {
+            randomNum1 = Random.Range(100, 501);
+            randomNum2 = Random.Range(10, 51);
+            randomNum3 = Random.Range(1, 11);
+
+            subAnswer = (randomNum1 / randomNum2) / randomNum3;
+
+            equationText.text = "(" + randomNum1 + " / " + randomNum2 + ")" + " / " + randomNum3;
+
+        }
     }
 
     //Button Press Functions
