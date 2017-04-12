@@ -79,17 +79,20 @@ public class RandomEquation : MonoBehaviour
         entryClearsHard = PlayerPrefs.GetInt("EntryClearsHard");
         playerGradeHard = PlayerPrefs.GetFloat("PlayerGradeHard");
 
+        onStartGameEquationChoose();
+    }
+
+
+    public void onStartGameEquationChoose()
+    {
+
+        clearEquationText();
+
         addEquations = PlayerPrefs.GetInt("Addition");
         subEquations = PlayerPrefs.GetInt("Subtraction");
         multEquations = PlayerPrefs.GetInt("Multiplication");
         divEquations = PlayerPrefs.GetInt("Division");
 
-        onStartGameEquationChoose();
-    }
-
-
-    void onStartGameEquationChoose()
-    {
         //Choose which type of question is shown based on player selection
 
         //All Player Prefs are checked
@@ -666,6 +669,11 @@ public class RandomEquation : MonoBehaviour
             entryClearsEasy += 1;
             PlayerPrefs.SetInt("EntryClearsEasy", entryClearsEasy);
         }
+    }
+
+    void clearEquationText()
+    {
+        equationText.text = "";
     }
 
     //Input Response Functions

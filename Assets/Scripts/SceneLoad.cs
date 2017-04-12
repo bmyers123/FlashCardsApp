@@ -6,17 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoad : MonoBehaviour
 {
-
+    //Canvases for "Changing Scenes"
     public Canvas mainMenuCanvas;
     public Canvas playCanvas;
     public Canvas optionsCanvas;
     public Canvas playerProfileCanvas;
     public Canvas equationsCanvas;
 
+    //Checkmark Images
+    public Image addCheckMark;
+    public Image subCheckMark;
+    public Image multCheckMark;
+    public Image divCheckMark;
+
+    //Background Images
     public Image easyBG;
     public Image mediumBG;
     public Image hardBG;
 
+    //Currently unused bools
     bool addEquations;
     bool subEquations;
     bool multEquations;
@@ -44,8 +52,6 @@ public class SceneLoad : MonoBehaviour
         Screen.orientation = ScreenOrientation.AutoRotation;
 #endif
     }
-
-
 
     private void Start()
     {
@@ -167,12 +173,14 @@ public class SceneLoad : MonoBehaviour
         if (PlayerPrefs.GetInt("Addition") == 0)
         {
             PlayerPrefs.SetInt("Addition", 1);
-            addEquations = true;
+            addCheckMark.gameObject.SetActive(true);
+            Debug.Log("Add True");
         }
         else if (PlayerPrefs.GetInt("Addition") == 1)
         {
             PlayerPrefs.SetInt("Addition", 0);
-            addEquations = false;
+            addCheckMark.gameObject.SetActive(false);
+            Debug.Log("Add False");
         }
     }
 
@@ -182,12 +190,14 @@ public class SceneLoad : MonoBehaviour
         if (PlayerPrefs.GetInt("Subtraction") == 0)
         {
             PlayerPrefs.SetInt("Subtraction", 1);
-            subEquations = true;
+            subCheckMark.gameObject.SetActive(true);
+            Debug.Log("Sub True");
         }
         else if (PlayerPrefs.GetInt("Subtraction") == 1)
         {
             PlayerPrefs.SetInt("Subtraction", 0);
-            subEquations = false;
+            subCheckMark.gameObject.SetActive(false);
+            Debug.Log("Sub False");
         }
     }
 
@@ -197,12 +207,14 @@ public class SceneLoad : MonoBehaviour
         if (PlayerPrefs.GetInt("Multiplication") == 0)
         {
             PlayerPrefs.SetInt("Multiplication", 1);
-            multEquations = true;
+            multCheckMark.gameObject.SetActive(true);
+            Debug.Log("Mult True");
         }
         else if (PlayerPrefs.GetInt("Multiplication") == 1)
         {
             PlayerPrefs.SetInt("Multiplication", 0);
-            multEquations = false;
+            multCheckMark.gameObject.SetActive(false);
+            Debug.Log("Mult False");
         }
     }
 
@@ -212,12 +224,14 @@ public class SceneLoad : MonoBehaviour
         if (PlayerPrefs.GetInt("Division") == 0)
         {
             PlayerPrefs.SetInt("Division", 1);
-            divEquations = true;
+            divCheckMark.gameObject.SetActive(true);
+            Debug.Log("Div True");
         }
         else if (PlayerPrefs.GetInt("Division") == 1)
         {
             PlayerPrefs.SetInt("Division", 0);
-            divEquations = false;
+            divCheckMark.gameObject.SetActive(false);
+            Debug.Log("Div False");
         }
     }
 
