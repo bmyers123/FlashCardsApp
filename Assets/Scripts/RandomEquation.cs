@@ -21,8 +21,6 @@ public class RandomEquation : MonoBehaviour
     //Answer to randomly generated question
     int addAnswer;
     int subAnswer;
-    int multAnswer;
-    int divAnswer;
 
     //Canvases for correct/incorrect answers
     public Canvas correctAnswer;
@@ -35,8 +33,6 @@ public class RandomEquation : MonoBehaviour
     int subEquations;
     int multEquations;
     int divEquations;
-    int randomEquationChoice;
-    List<int> equationTypes;
     //----Easy
     int correctAnswersEasy;
     int incorrectAnswersEasy;
@@ -57,9 +53,6 @@ public class RandomEquation : MonoBehaviour
     void Start()
     {
         answerInput.text = "";
-        equationTypes = new List<int>();
-
-        PlayerPrefs.SetInt("EquationType", 0);
 
         //Init EasyMode PlayerPrefs
         correctAnswersEasy = PlayerPrefs.GetInt("CorrectAnswersEasy");
@@ -84,69 +77,9 @@ public class RandomEquation : MonoBehaviour
         multEquations = PlayerPrefs.GetInt("Multiplication");
         divEquations = PlayerPrefs.GetInt("Division");
 
-        onStartGameEquationChoose();
+
+        onStartGameAddition();
     }
-
-
-    void onStartGameEquationChoose()
-    {
-        //Choose which type of question is shown based on player selection
-
-        //All Player Prefs are checked
-        //-----If player wants addition questions, add them to the list of available types
-        if (addEquations == 1)
-        {
-            equationTypes.Add(0);
-        }
-        //-----If player wants subtraction questions...
-        if (subEquations == 1)
-        {
-            equationTypes.Add(1);
-        }
-        //-----If player wants multiplication questions...
-        if (multEquations == 1)
-        {
-            equationTypes.Add(2);
-        }
-        //-----If player wants division questions...
-        if (divEquations == 1)
-        {
-            equationTypes.Add(3); 
-        }
-
-        //Choose a random # b/w 0 and the sizeof previously created list of player's preferred equation types
-        randomEquationChoice = Random.Range(0, equationTypes.Count);
-
-
-        if (equationTypes[randomEquationChoice] == 0)
-        {
-            PlayerPrefs.SetInt("EquationType", 0);
-            equationTypes.Clear();
-            onStartGameAddition();
-        }
-        else if (equationTypes[randomEquationChoice] == 1)
-        {
-            PlayerPrefs.SetInt("EquationType", 1);
-            equationTypes.Clear();
-            onStartGameSubtraction();
-        }
-        else if (equationTypes[randomEquationChoice] == 2)
-        {
-            PlayerPrefs.SetInt("EquationType", 2);
-            equationTypes.Clear();
-            onStartGameMultiplication();
-        }
-        else if (equationTypes[randomEquationChoice] == 3)
-        {
-            PlayerPrefs.SetInt("EquationType", 3);
-            equationTypes.Clear();
-            onStartGameDivision();
-        }
-
-        
-
-    }
-
 
     void onStartGameAddition()
     {
@@ -246,7 +179,7 @@ public class RandomEquation : MonoBehaviour
             randomNum1 = Random.Range(0, 10);
             randomNum2 = Random.Range(0, 10);
 
-            multAnswer = randomNum1 * randomNum2;
+            subAnswer = randomNum1 * randomNum2;
 
             equationText.text = randomNum1 + " x " + randomNum2;
         }
@@ -257,7 +190,7 @@ public class RandomEquation : MonoBehaviour
             randomNum1 = Random.Range(0, 10);
             randomNum2 = Random.Range(0, 100);
 
-            multAnswer = randomNum1 * randomNum2;
+            subAnswer = randomNum1 * randomNum2;
 
             equationText.text = randomNum1 + " x " + randomNum2;
         }
@@ -269,7 +202,7 @@ public class RandomEquation : MonoBehaviour
             randomNum2 = Random.Range(0, 50);
             randomNum3 = Random.Range(0, 10);
 
-            multAnswer = randomNum1 * (randomNum2 * randomNum3);
+            subAnswer = randomNum1 * (randomNum2 * randomNum3);
 
             equationText.text = randomNum1 + " x " + "(" + randomNum2 + " x " + randomNum3 + ")";
 
@@ -292,7 +225,7 @@ public class RandomEquation : MonoBehaviour
             randomNum1 = Random.Range(10, 21);
             randomNum2 = Random.Range(1, 11);
 
-            divAnswer = randomNum1 / randomNum2;
+            subAnswer = randomNum1 / randomNum2;
 
             equationText.text = randomNum1 + " / " + randomNum2;
         }
@@ -303,7 +236,7 @@ public class RandomEquation : MonoBehaviour
             randomNum1 = Random.Range(10, 101);
             randomNum2 = Random.Range(1, 11);
 
-            divAnswer = randomNum1 * randomNum2;
+            subAnswer = randomNum1 * randomNum2;
 
             equationText.text = randomNum1 + " / " + randomNum2;
         }
@@ -315,7 +248,7 @@ public class RandomEquation : MonoBehaviour
             randomNum2 = Random.Range(10, 51);
             randomNum3 = Random.Range(1, 11);
 
-            divAnswer = (randomNum1 / randomNum2) / randomNum3;
+            subAnswer = (randomNum1 / randomNum2) / randomNum3;
 
             equationText.text = "(" + randomNum1 + " / " + randomNum2 + ")" + " / " + randomNum3;
 
@@ -390,237 +323,78 @@ public class RandomEquation : MonoBehaviour
 
         if (answerInput.text != "")
         {
-            //Check if addition, subtraction, multiplication or division
+            //Check if addition or subtraction?
             //----------
 
             //If Addition:
-            if (PlayerPrefs.GetInt("EquationType") == 0)
+            //-----Correct Answer
+            if (answerInput.text == addAnswer.ToString())
             {
-                //-----Correct Answer
-                if (answerInput.text == addAnswer.ToString())
+                //-----Easy
+                if (PlayerPrefs.GetInt("GameDifficulty") == 0)
                 {
-                    //-----Easy
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 0)
-                    {
-                        correctAnswersEasy += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersEasy", correctAnswersEasy);
-                    }
-                    //-----Medium
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 1)
-                    {
-                        correctAnswersMedium += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersMedium", correctAnswersMedium);
-                    }
-                    //-----Hard
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 2)
-                    {
-                        correctAnswersHard += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersHard", correctAnswersHard);
-                    }
-
-                    //Display Correct
-                    StartCoroutine(correctAnswerDisplayWait());
+                    correctAnswersEasy += 1;
+                    PlayerPrefs.SetInt("CorrectAnswersEasy", correctAnswersEasy);
+                }
+                //-----Medium
+                if (PlayerPrefs.GetInt("GameDifficulty") == 1)
+                {
+                    correctAnswersMedium += 1;
+                    PlayerPrefs.SetInt("CorrectAnswersMedium", correctAnswersMedium);
+                }
+                //-----Hard
+                if (PlayerPrefs.GetInt("GameDifficulty") == 2)
+                {
+                    correctAnswersHard += 1;
+                    PlayerPrefs.SetInt("CorrectAnswersHard", correctAnswersHard);
                 }
 
-                //-----Incorrect Answer
-                else
+                //Display Correct
+                StartCoroutine(correctAnswerDisplayWait());
+            }
+
+            //-----Incorrect Answer
+            else
+            {
+                //-----Easy
+                if (PlayerPrefs.GetInt("GameDifficulty") == 0)
                 {
-                    //-----Easy
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 0)
-                    {
-                        incorrectAnswersEasy += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersEasy", incorrectAnswersEasy);
-                    }
-                    //-----Medium
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 1)
-                    {
-                        incorrectAnswersMedium += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersMedium", incorrectAnswersMedium);
-                    }
-                    //-----Hard
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 2)
-                    {
-                        incorrectAnswersHard += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersHard", incorrectAnswersHard);
-                    }
-
-                    //Display Incorrect
-                    StartCoroutine(incorrectAnswerDisplayWait());
-
+                    incorrectAnswersEasy += 1;
+                    PlayerPrefs.SetInt("IncorrectAnswersEasy", incorrectAnswersEasy);
                 }
+                //-----Medium
+                if (PlayerPrefs.GetInt("GameDifficulty") == 1)
+                {
+                    incorrectAnswersMedium += 1;
+                    PlayerPrefs.SetInt("IncorrectAnswersMedium", incorrectAnswersMedium);
+                }
+                //-----Hard
+                if (PlayerPrefs.GetInt("GameDifficulty") == 2)
+                {
+                    incorrectAnswersHard += 1;
+                    PlayerPrefs.SetInt("IncorrectAnswersHard", incorrectAnswersHard);
+                }
+
+                //Display Incorrect
+                StartCoroutine(incorrectAnswerDisplayWait());
+
             }
 
 
             //If Subtraction:
-            if (PlayerPrefs.GetInt("EquationType") == 1)
+            //---------------
+            if (answerInput.text == subAnswer.ToString())
             {
-                //-----Correct Answer
-                if (answerInput.text == subAnswer.ToString())
-                {
-                    //-----Easy
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 0)
-                    {
-                        correctAnswersEasy += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersEasy", correctAnswersEasy);
-                    }
-                    //-----Medium
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 1)
-                    {
-                        correctAnswersMedium += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersMedium", correctAnswersMedium);
-                    }
-                    //-----Hard
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 2)
-                    {
-                        correctAnswersHard += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersHard", correctAnswersHard);
-                    }
-
-                    //Display Correct
-                    StartCoroutine(correctAnswerDisplayWait());
-                }
-
-
-                //-----Incorrect Answer
-                else
-                {
-                    //-----Easy
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 0)
-                    {
-                        incorrectAnswersEasy += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersEasy", incorrectAnswersEasy);
-                    }
-                    //-----Medium
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 1)
-                    {
-                        incorrectAnswersMedium += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersMedium", incorrectAnswersMedium);
-                    }
-                    //-----Hard
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 2)
-                    {
-                        incorrectAnswersHard += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersHard", incorrectAnswersHard);
-                    }
-
-                    //Display Incorrect
-                    StartCoroutine(incorrectAnswerDisplayWait());
-
-                }
-            }
-            //If Multiplication:
-            if (PlayerPrefs.GetInt("EquationType") == 2)
-            {
-                //-----Correct Answer
-                if (answerInput.text == multAnswer.ToString())
-                {
-                    //-----Easy
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 0)
-                    {
-                        correctAnswersEasy += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersEasy", correctAnswersEasy);
-                    }
-                    //-----Medium
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 1)
-                    {
-                        correctAnswersMedium += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersMedium", correctAnswersMedium);
-                    }
-                    //-----Hard
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 2)
-                    {
-                        correctAnswersHard += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersHard", correctAnswersHard);
-                    }
-
-                    //Display Correct
-                    StartCoroutine(correctAnswerDisplayWait());
-                }
-
-                //-----Incorrect Answer
-                else
-                {
-                    //-----Easy
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 0)
-                    {
-                        incorrectAnswersEasy += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersEasy", incorrectAnswersEasy);
-                    }
-                    //-----Medium
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 1)
-                    {
-                        incorrectAnswersMedium += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersMedium", incorrectAnswersMedium);
-                    }
-                    //-----Hard
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 2)
-                    {
-                        incorrectAnswersHard += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersHard", incorrectAnswersHard);
-                    }
-
-                    //Display Incorrect
-                    StartCoroutine(incorrectAnswerDisplayWait());
-
-                }
+                //Display Correct
+                //----------
             }
 
-            //If Division:
-            if (PlayerPrefs.GetInt("EquationType") == 3)
+            else
             {
-                //-----Correct Answer
-                if (answerInput.text == divAnswer.ToString())
-                {
-                    //-----Easy
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 0)
-                    {
-                        correctAnswersEasy += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersEasy", correctAnswersEasy);
-                    }
-                    //-----Medium
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 1)
-                    {
-                        correctAnswersMedium += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersMedium", correctAnswersMedium);
-                    }
-                    //-----Hard
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 2)
-                    {
-                        correctAnswersHard += 1;
-                        PlayerPrefs.SetInt("CorrectAnswersHard", correctAnswersHard);
-                    }
-
-                    //Display Correct
-                    StartCoroutine(correctAnswerDisplayWait());
-                }
-
-                //-----Incorrect Answer
-                else
-                {
-                    //-----Easy
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 0)
-                    {
-                        incorrectAnswersEasy += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersEasy", incorrectAnswersEasy);
-                    }
-                    //-----Medium
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 1)
-                    {
-                        incorrectAnswersMedium += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersMedium", incorrectAnswersMedium);
-                    }
-                    //-----Hard
-                    if (PlayerPrefs.GetInt("GameDifficulty") == 2)
-                    {
-                        incorrectAnswersHard += 1;
-                        PlayerPrefs.SetInt("IncorrectAnswersHard", incorrectAnswersHard);
-                    }
-
-                    //Display Incorrect
-                    StartCoroutine(incorrectAnswerDisplayWait());
-
-                }
+                //Display Incorrect
+                //----------
             }
+
 
             //Calculate Percentages (Accuracy)
             //-----Easy
@@ -676,7 +450,7 @@ public class RandomEquation : MonoBehaviour
         correctAnswer.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         correctAnswer.gameObject.SetActive(false);
-        onStartGameEquationChoose();
+        onStartGameAddition();
     }
 
     //-----Displays "Try Again" on Wrong Answer

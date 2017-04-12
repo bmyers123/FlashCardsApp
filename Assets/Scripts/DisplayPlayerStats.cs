@@ -29,42 +29,60 @@ public class DisplayPlayerStats : MonoBehaviour
             displayPlayerStatsHard();
         }
 
-        if (PlayerPrefs.GetInt("FirstDisplayLoad") == 0)
-        {
+        //Equation Choices
+        PlayerPrefs.SetInt("Addition", 1);
+        PlayerPrefs.SetInt("Subtraction", 0);
+        PlayerPrefs.SetInt("Multiplication", 0);
+        PlayerPrefs.SetInt("Division", 0);
 
-            //Player's current difficulty setting
-            PlayerPrefs.SetInt("GameDifficulty", 0);
+        //Uncomment and run app to wipe playerprefs
+        /*
+            PlayerPrefs.SetInt("FirstStart", 0);
 
-            //PLAYER PREFS FOR EASY MODE
-            //---------------------------------------------------------------
-            //Number of total Correct Answers made by player
-            PlayerPrefs.SetInt("CorrectAnswersEasy", 0);
+            if (PlayerPrefs.GetInt("FirstStart") == 0)
+            {
+                
+               
 
-            //Number of total Incorrect Answers made by player
-            PlayerPrefs.SetInt("IncorrectAnswersEasy", 0);
+                //Player's current difficulty setting
+                PlayerPrefs.SetInt("GameDifficulty", 0);
 
-            //Percentage of correct to incorrect answers
-            PlayerPrefs.SetFloat("PlayerGradeEasy", 0);
+                //PLAYER PREFS FOR EASY MODE
+                //---------------------------------------------------------------
+                //Number of total Correct Answers made by player
+                PlayerPrefs.SetInt("CorrectAnswersEasy", 0);
 
-            //Number of times player has cleared their entry
-            PlayerPrefs.SetInt("EntryClearsEasy", 0);
+                //Number of total Incorrect Answers made by player
+                PlayerPrefs.SetInt("IncorrectAnswersEasy", 0);
 
-            //PLAYER PREFS FOR MEDIUM MODE
-            //---------------------------------------------------------------
-            PlayerPrefs.SetInt("CorrectAnswersMedium", 0);
-            PlayerPrefs.SetInt("IncorrectAnswersMedium", 0);
-            PlayerPrefs.SetFloat("PlayerGradeMedium", 0);
-            PlayerPrefs.SetInt("EntryClearsMedium", 0);
+                //Percentage of correct to incorrect answers
+                PlayerPrefs.SetFloat("PlayerGradeEasy", 0);
 
-            //PLAYER PREFS FOR HARD MODE
-            //---------------------------------------------------------------
-            PlayerPrefs.SetInt("CorrectAnswersHard", 0);
-            PlayerPrefs.SetInt("IncorrectAnswersHard", 0);
-            PlayerPrefs.SetFloat("PlayerGradeHard", 0);
-            PlayerPrefs.SetInt("EntryClearsHard", 0);
+                //Number of times player has cleared their entry
+                PlayerPrefs.SetInt("EntryClearsEasy", 0);
 
-            PlayerPrefs.SetInt("FirstDisplayLoad", 1);
-        }
+
+                //PLAYER PREFS FOR MEDIUM MODE
+                //---------------------------------------------------------------
+                PlayerPrefs.SetInt("CorrectAnswersMedium", 0);
+                PlayerPrefs.SetInt("IncorrectAnswersMedium", 0);
+                PlayerPrefs.SetFloat("PlayerGradeMedium", 0);
+                PlayerPrefs.SetInt("EntryClearsMedium", 0);
+
+                //PLAYER PREFS FOR HARD MODE
+                //---------------------------------------------------------------
+                PlayerPrefs.SetInt("CorrectAnswersHard", 0);
+                PlayerPrefs.SetInt("IncorrectAnswersHard", 0);
+                PlayerPrefs.SetFloat("PlayerGradeHard", 0);
+                PlayerPrefs.SetInt("EntryClearsHard", 0);
+
+            
+
+            }
+
+            PlayerPrefs.SetInt("FirstStart", 1);
+            */
+
     }
 
 
