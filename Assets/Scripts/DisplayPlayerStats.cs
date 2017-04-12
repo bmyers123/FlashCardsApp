@@ -28,22 +28,12 @@ public class DisplayPlayerStats : MonoBehaviour
         {
             displayPlayerStatsHard();
         }
-
-        //Equation Choices
-        PlayerPrefs.SetInt("Addition", 1);
-        PlayerPrefs.SetInt("Subtraction", 0);
-        PlayerPrefs.SetInt("Multiplication", 0);
-        PlayerPrefs.SetInt("Division", 0);
-
         //Uncomment and run app to wipe playerprefs
         /*
             PlayerPrefs.SetInt("FirstStart", 0);
 
             if (PlayerPrefs.GetInt("FirstStart") == 0)
             {
-                
-               
-
                 //Player's current difficulty setting
                 PlayerPrefs.SetInt("GameDifficulty", 0);
 
@@ -75,9 +65,6 @@ public class DisplayPlayerStats : MonoBehaviour
                 PlayerPrefs.SetInt("IncorrectAnswersHard", 0);
                 PlayerPrefs.SetFloat("PlayerGradeHard", 0);
                 PlayerPrefs.SetInt("EntryClearsHard", 0);
-
-            
-
             }
 
             PlayerPrefs.SetInt("FirstStart", 1);
