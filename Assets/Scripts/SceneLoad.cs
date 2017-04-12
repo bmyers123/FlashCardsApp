@@ -8,6 +8,7 @@ public class SceneLoad : MonoBehaviour
 {
 
     public Canvas mainMenuCanvas;
+    public Canvas playCanvas;
     public Canvas optionsCanvas;
     public Canvas playerProfileCanvas;
     public Canvas equationsCanvas;
@@ -77,8 +78,11 @@ public class SceneLoad : MonoBehaviour
     //-----Load Play Scene
     public void playButtonClicked()
     {
-        PlayerPrefs.Save();
-        SceneManager.LoadScene(1);
+        playCanvas.gameObject.SetActive(true);
+        optionsCanvas.gameObject.SetActive(false);
+        mainMenuCanvas.gameObject.SetActive(false);
+        playerProfileCanvas.gameObject.SetActive(false);
+        equationsCanvas.gameObject.SetActive(false);
     }
 
     //Menu Changes
@@ -87,6 +91,7 @@ public class SceneLoad : MonoBehaviour
     public void loadOptionsMenu()
     {
         optionsCanvas.gameObject.SetActive(true);
+        playCanvas.gameObject.SetActive(false);
         mainMenuCanvas.gameObject.SetActive(false);
         playerProfileCanvas.gameObject.SetActive(false);
         equationsCanvas.gameObject.SetActive(false);
@@ -96,6 +101,7 @@ public class SceneLoad : MonoBehaviour
     public void loadMainMenu()
     {
         mainMenuCanvas.gameObject.SetActive(true);
+        playCanvas.gameObject.SetActive(false);
         optionsCanvas.gameObject.SetActive(false);
         playerProfileCanvas.gameObject.SetActive(false);
         equationsCanvas.gameObject.SetActive(false);
@@ -105,6 +111,7 @@ public class SceneLoad : MonoBehaviour
     public void loadPlayerProfile()
     {
         playerProfileCanvas.gameObject.SetActive(true);
+        playCanvas.gameObject.SetActive(false);
         mainMenuCanvas.gameObject.SetActive(false);
         optionsCanvas.gameObject.SetActive(false);
         equationsCanvas.gameObject.SetActive(false);
@@ -114,6 +121,7 @@ public class SceneLoad : MonoBehaviour
     public void loadEquationsMenu()
     {
         equationsCanvas.gameObject.SetActive(true);
+        playCanvas.gameObject.SetActive(false);
         playerProfileCanvas.gameObject.SetActive(false);
         mainMenuCanvas.gameObject.SetActive(false);
         optionsCanvas.gameObject.SetActive(false);
