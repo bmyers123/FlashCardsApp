@@ -10,7 +10,6 @@ public class SceneLoad : MonoBehaviour
     public Canvas mainMenuCanvas;
     public Canvas optionsCanvas;
     public Canvas playerProfileCanvas;
-    public Canvas equationsCanvas;
 
     public Image easyBG;
     public Image mediumBG;
@@ -89,7 +88,6 @@ public class SceneLoad : MonoBehaviour
         optionsCanvas.gameObject.SetActive(true);
         mainMenuCanvas.gameObject.SetActive(false);
         playerProfileCanvas.gameObject.SetActive(false);
-        equationsCanvas.gameObject.SetActive(false);
     }
 
     //-----Load Main Menu
@@ -98,7 +96,6 @@ public class SceneLoad : MonoBehaviour
         mainMenuCanvas.gameObject.SetActive(true);
         optionsCanvas.gameObject.SetActive(false);
         playerProfileCanvas.gameObject.SetActive(false);
-        equationsCanvas.gameObject.SetActive(false);
     }
 
     //-----Load Player's Profile Page
@@ -107,17 +104,8 @@ public class SceneLoad : MonoBehaviour
         playerProfileCanvas.gameObject.SetActive(true);
         mainMenuCanvas.gameObject.SetActive(false);
         optionsCanvas.gameObject.SetActive(false);
-        equationsCanvas.gameObject.SetActive(false);
     }
 
-    //-----Load Player's Profile Page
-    public void loadEquationsMenu()
-    {
-        equationsCanvas.gameObject.SetActive(true);
-        playerProfileCanvas.gameObject.SetActive(false);
-        mainMenuCanvas.gameObject.SetActive(false);
-        optionsCanvas.gameObject.SetActive(false);
-    }
 
     //Difficulty Setting Functions
 
