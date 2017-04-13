@@ -28,7 +28,6 @@ public class RandomEquation : MonoBehaviour
     public Canvas correctAnswer;
     public Canvas incorrectAnswer;
 
-
     //Player Pref Setting Variables
     //----General
     int addEquations;
@@ -37,6 +36,43 @@ public class RandomEquation : MonoBehaviour
     int divEquations;
     int randomEquationChoice;
     List<int> equationTypes;
+    List<int> divEasyUpper;
+    List<int> divEasyLowerTemp1;
+    List<int> divEasyLowerTemp2;
+    List<int> divEasyLowerTemp3;
+    List<int> divEasyLowerTemp4;
+    List<int> divEasyLowerTemp5;
+    List<int> divEasyLowerTemp6;
+    List<int> divEasyLowerTemp7;
+    List<List<int>> divEasyLower;
+    List<int> divMedUpper;
+    List<int> divMedLowerTemp1;
+    List<int> divMedLowerTemp2;
+    List<int> divMedLowerTemp3;
+    List<int> divMedLowerTemp4;
+    List<int> divMedLowerTemp5;
+    List<int> divMedLowerTemp6;
+    List<int> divMedLowerTemp7;
+    List<int> divMedLowerTemp8;
+    List<int> divMedLowerTemp9;
+    List<int> divMedLowerTemp10;
+    List<int> divMedLowerTemp11;
+    List<int> divMedLowerTemp12;
+    List<int> divMedLowerTemp13;
+    List<int> divMedLowerTemp14;
+    List<int> divMedLowerTemp15;
+    List<int> divMedLowerTemp16;
+    List<int> divMedLowerTemp17;
+    List<int> divMedLowerTemp18;
+    List<int> divMedLowerTemp19;
+    List<int> divMedLowerTemp20;
+    List<int> divMedLowerTemp21;
+    List<int> divMedLowerTemp22;
+    List<int> divMedLowerTemp23;
+    List<List<int>> divMedLower;
+    List<int> divHardUpper;
+    List<int> divHardLowerTemp;
+    List<List<int>> divHardLower;
     //----Easy
     int correctAnswersEasy;
     int incorrectAnswersEasy;
@@ -58,6 +94,43 @@ public class RandomEquation : MonoBehaviour
     {
         answerInput.text = "";
         equationTypes = new List<int>();
+        divEasyUpper = new List<int>();
+        divEasyLowerTemp1 = new List<int>();
+        divEasyLowerTemp2 = new List<int>();
+        divEasyLowerTemp3 = new List<int>();
+        divEasyLowerTemp4 = new List<int>();
+        divEasyLowerTemp5 = new List<int>();
+        divEasyLowerTemp6 = new List<int>();
+        divEasyLowerTemp7 = new List<int>();
+        divEasyLower = new List<List<int>>();
+        divMedUpper = new List<int>();
+        divMedLowerTemp1 = new List<int>();
+        divMedLowerTemp2 = new List<int>();
+        divMedLowerTemp3 = new List<int>();
+        divMedLowerTemp4 = new List<int>();
+        divMedLowerTemp5 = new List<int>();
+        divMedLowerTemp6 = new List<int>();
+        divMedLowerTemp7 = new List<int>();
+        divMedLowerTemp8 = new List<int>();
+        divMedLowerTemp9 = new List<int>();
+        divMedLowerTemp10 = new List<int>();
+        divMedLowerTemp11 = new List<int>();
+        divMedLowerTemp12 = new List<int>();
+        divMedLowerTemp13 = new List<int>();
+        divMedLowerTemp14 = new List<int>();
+        divMedLowerTemp15 = new List<int>();
+        divMedLowerTemp16 = new List<int>();
+        divMedLowerTemp17 = new List<int>();
+        divMedLowerTemp18 = new List<int>();
+        divMedLowerTemp19 = new List<int>();
+        divMedLowerTemp20 = new List<int>();
+        divMedLowerTemp21 = new List<int>();
+        divMedLowerTemp22 = new List<int>();
+        divMedLowerTemp23 = new List<int>();
+        divMedLower = new List<List<int>>();
+        divHardUpper = new List<int>();
+        divHardLowerTemp = new List<int>();
+        divHardLower = new List<List<int>>();
 
         PlayerPrefs.SetInt("EquationType", 0);
 
@@ -79,13 +152,12 @@ public class RandomEquation : MonoBehaviour
         entryClearsHard = PlayerPrefs.GetInt("EntryClearsHard");
         playerGradeHard = PlayerPrefs.GetFloat("PlayerGradeHard");
 
+        divisionQuestionFill();
         onStartGameEquationChoose();
     }
 
-
     public void onStartGameEquationChoose()
     {
-
         clearEquationText();
 
         addEquations = PlayerPrefs.GetInt("Addition");
@@ -145,11 +217,7 @@ public class RandomEquation : MonoBehaviour
             equationTypes.Clear();
             onStartGameDivision();
         }
-
-        
-
     }
-
 
     void onStartGameAddition()
     {
@@ -190,7 +258,6 @@ public class RandomEquation : MonoBehaviour
 
             equationText.text = randomNum1 + " + " + randomNum2 + " + " + randomNum3;
         }
-
     }
 
     void onStartGameSubtraction()
@@ -232,7 +299,6 @@ public class RandomEquation : MonoBehaviour
             subAnswer = randomNum1 - randomNum2 - randomNum3;
 
             equationText.text = randomNum1 + " - " + randomNum2 + " - " + randomNum3;
-
         }
     }
 
@@ -279,7 +345,6 @@ public class RandomEquation : MonoBehaviour
         }
     }
 
-
     //============================================
     //---------------NEEDS TWEAKING---------------
     void onStartGameDivision()
@@ -287,13 +352,15 @@ public class RandomEquation : MonoBehaviour
         //Always clear input field before new question
         clearInput();
 
-
         //Different Questions Generated Based on Difficulty Choice
         //-----Easy Question: division b/w 2 random numbers from 10 to 20 and 1 to 10
         if (PlayerPrefs.GetInt("GameDifficulty") == 0)
         {
-            randomNum1 = Random.Range(10, 21);
-            randomNum2 = Random.Range(1, 11);
+            randomNum1 = Random.Range(0, divEasyUpper.Count);
+            randomNum2 = Random.Range(0, divEasyLower[randomNum1].Count);
+
+            randomNum2 = divEasyLower[randomNum1][randomNum2];
+            randomNum1 = divEasyUpper[randomNum1];
 
             divAnswer = randomNum1 / randomNum2;
 
@@ -303,10 +370,13 @@ public class RandomEquation : MonoBehaviour
         //-----Medium Question: division b/w 2 random numbers from 10 to 100 and 1 to 10
         if (PlayerPrefs.GetInt("GameDifficulty") == 1)
         {
-            randomNum1 = Random.Range(10, 101);
-            randomNum2 = Random.Range(1, 11);
+            randomNum1 = Random.Range(0, divMedUpper.Count);
+            randomNum2 = Random.Range(0, divMedLower[randomNum1].Count);
 
-            divAnswer = randomNum1 * randomNum2;
+            randomNum2 = divMedLower[randomNum1][randomNum2];
+            randomNum1 = divMedUpper[randomNum1];
+
+            divAnswer = randomNum1 / randomNum2;
 
             equationText.text = randomNum1 + " / " + randomNum2;
         }
@@ -321,7 +391,6 @@ public class RandomEquation : MonoBehaviour
             divAnswer = (randomNum1 / randomNum2) / randomNum3;
 
             equationText.text = "(" + randomNum1 + " / " + randomNum2 + ")" + " / " + randomNum3;
-
         }
     }
 
@@ -452,7 +521,6 @@ public class RandomEquation : MonoBehaviour
 
                 }
             }
-
 
             //If Subtraction:
             if (PlayerPrefs.GetInt("EquationType") == 1)
@@ -702,6 +770,335 @@ public class RandomEquation : MonoBehaviour
     {
         PlayerPrefs.Save();
         yield return new WaitForSeconds(10.0f);
+    }
+
+    //Fill Division Question Lists
+    void divisionQuestionFill()
+    {
+        //Preset Number lists for division questions
+        //-----Easy Lists
+
+        //--Upper Bounds
+        divEasyUpper.Add(10);
+        divEasyUpper.Add(12);
+        divEasyUpper.Add(14);
+        divEasyUpper.Add(15);
+        divEasyUpper.Add(16);
+        divEasyUpper.Add(18);
+        divEasyUpper.Add(20);
+
+        //--Lower Bounds
+        //10
+        divEasyLowerTemp1.Add(1);
+        divEasyLowerTemp1.Add(2);
+        divEasyLowerTemp1.Add(5);
+        divEasyLowerTemp1.Add(10);
+
+        divEasyLower.Add(divEasyLowerTemp1);
+
+        //12
+        divEasyLowerTemp2.Add(1);
+        divEasyLowerTemp2.Add(2);
+        divEasyLowerTemp2.Add(3);
+        divEasyLowerTemp2.Add(4);
+        divEasyLowerTemp2.Add(6);
+        divEasyLowerTemp2.Add(12);
+
+        divEasyLower.Add(divEasyLowerTemp2);
+
+        //14
+        divEasyLowerTemp3.Add(1);
+        divEasyLowerTemp3.Add(2);
+        divEasyLowerTemp3.Add(7);
+        divEasyLowerTemp3.Add(14);
+
+        divEasyLower.Add(divEasyLowerTemp3);
+
+        //15
+        divEasyLowerTemp4.Add(1);
+        divEasyLowerTemp4.Add(3);
+        divEasyLowerTemp4.Add(5);
+        divEasyLowerTemp4.Add(15);
+
+        divEasyLower.Add(divEasyLowerTemp4);
+
+        //16
+        divEasyLowerTemp5.Add(1);
+        divEasyLowerTemp5.Add(2);
+        divEasyLowerTemp5.Add(4);
+        divEasyLowerTemp5.Add(8);
+        divEasyLowerTemp5.Add(16);
+
+        divEasyLower.Add(divEasyLowerTemp5);
+
+        //18
+        divEasyLowerTemp6.Add(1);
+        divEasyLowerTemp6.Add(2);
+        divEasyLowerTemp6.Add(3);
+        divEasyLowerTemp6.Add(6);
+        divEasyLowerTemp6.Add(9);
+        divEasyLowerTemp6.Add(18);
+
+        divEasyLower.Add(divEasyLowerTemp6);
+
+        //20
+        divEasyLowerTemp7.Add(1);
+        divEasyLowerTemp7.Add(2);
+        divEasyLowerTemp7.Add(4);
+        divEasyLowerTemp7.Add(5);
+        divEasyLowerTemp7.Add(10);
+        divEasyLowerTemp7.Add(20);
+
+        divEasyLower.Add(divEasyLowerTemp7);
+
+        //-----Medium Lists
+        //--Upper Bounds
+        divMedUpper.Add(20);
+        divMedUpper.Add(21);
+        divMedUpper.Add(22);
+        divMedUpper.Add(24);
+        divMedUpper.Add(25);
+        divMedUpper.Add(26);
+        divMedUpper.Add(28);
+        divMedUpper.Add(30);
+        divMedUpper.Add(32);
+        divMedUpper.Add(33);
+        divMedUpper.Add(34);
+        divMedUpper.Add(35);
+        divMedUpper.Add(36);
+        divMedUpper.Add(38);
+        divMedUpper.Add(39);
+        divMedUpper.Add(40);
+        divMedUpper.Add(42);
+        divMedUpper.Add(44);
+        divMedUpper.Add(45);
+        divMedUpper.Add(46);
+        divMedUpper.Add(48);
+        divMedUpper.Add(49);
+        divMedUpper.Add(50);
+
+        //--Lower Bounds
+        //20
+        divMedLowerTemp1.Add(1);
+        divMedLowerTemp1.Add(2);
+        divMedLowerTemp1.Add(4);
+        divMedLowerTemp1.Add(5);
+        divMedLowerTemp1.Add(10);
+        divMedLowerTemp1.Add(20);
+
+        divMedLower.Add(divMedLowerTemp1);
+
+        //21
+        divMedLowerTemp2.Add(1);
+        divMedLowerTemp2.Add(3);
+        divMedLowerTemp2.Add(7);
+        divMedLowerTemp2.Add(21);
+
+        divMedLower.Add(divMedLowerTemp2);
+
+        //22
+        divMedLowerTemp3.Add(1);
+        divMedLowerTemp3.Add(2);
+        divMedLowerTemp3.Add(11);
+        divMedLowerTemp3.Add(22);
+
+        divMedLower.Add(divMedLowerTemp3);
+
+        //24
+        divMedLowerTemp4.Add(1);
+        divMedLowerTemp4.Add(2);
+        divMedLowerTemp4.Add(3);
+        divMedLowerTemp4.Add(4);
+        divMedLowerTemp4.Add(6);
+        divMedLowerTemp4.Add(8);
+        divMedLowerTemp4.Add(12);
+        divMedLowerTemp4.Add(24);
+
+        divMedLower.Add(divMedLowerTemp4);
+
+        //25
+        divMedLowerTemp5.Add(1);
+        divMedLowerTemp5.Add(5);
+        divMedLowerTemp5.Add(25);
+
+        divMedLower.Add(divMedLowerTemp5);
+
+        //26
+        divMedLowerTemp6.Add(1);
+        divMedLowerTemp6.Add(2);
+        divMedLowerTemp6.Add(13);
+        divMedLowerTemp6.Add(26);
+
+        divMedLower.Add(divMedLowerTemp6);
+
+        //28
+        divMedLowerTemp7.Add(1);
+        divMedLowerTemp7.Add(2);
+        divMedLowerTemp7.Add(4);
+        divMedLowerTemp7.Add(7);
+        divMedLowerTemp7.Add(14);
+        divMedLowerTemp7.Add(28);
+
+        divMedLower.Add(divMedLowerTemp7);
+
+        //30
+        divMedLowerTemp8.Add(1);
+        divMedLowerTemp8.Add(2);
+        divMedLowerTemp8.Add(3);
+        divMedLowerTemp8.Add(5);
+        divMedLowerTemp8.Add(6);
+        divMedLowerTemp8.Add(10);
+        divMedLowerTemp8.Add(15);
+        divMedLowerTemp8.Add(30);
+
+        divMedLower.Add(divMedLowerTemp8);
+
+        //32
+        divMedLowerTemp9.Add(1);
+        divMedLowerTemp9.Add(2);
+        divMedLowerTemp9.Add(4);
+        divMedLowerTemp9.Add(8);
+        divMedLowerTemp9.Add(16);
+        divMedLowerTemp9.Add(32);
+
+        divMedLower.Add(divMedLowerTemp9);
+
+        //33
+        divMedLowerTemp10.Add(1);
+        divMedLowerTemp10.Add(3);
+        divMedLowerTemp10.Add(11);
+        divMedLowerTemp10.Add(33);
+
+        divMedLower.Add(divMedLowerTemp10);
+
+        //34
+        divMedLowerTemp11.Add(1);
+        divMedLowerTemp11.Add(2);
+        divMedLowerTemp11.Add(17);
+        divMedLowerTemp11.Add(34);
+
+        divMedLower.Add(divMedLowerTemp11);
+
+        //35
+        divMedLowerTemp12.Add(1);
+        divMedLowerTemp12.Add(5);
+        divMedLowerTemp12.Add(7);
+        divMedLowerTemp12.Add(35);
+
+        divMedLower.Add(divMedLowerTemp12);
+
+        //36
+        divMedLowerTemp13.Add(1);
+        divMedLowerTemp13.Add(2);
+        divMedLowerTemp13.Add(3);
+        divMedLowerTemp13.Add(4);
+        divMedLowerTemp13.Add(9);
+        divMedLowerTemp13.Add(12);
+        divMedLowerTemp13.Add(18);
+        divMedLowerTemp13.Add(36);
+
+        divMedLower.Add(divMedLowerTemp13);
+
+        //38
+        divMedLowerTemp14.Add(1);
+        divMedLowerTemp14.Add(2);
+        divMedLowerTemp14.Add(19);
+        divMedLowerTemp14.Add(38);
+
+        divMedLower.Add(divMedLowerTemp14);
+
+        //39
+        divMedLowerTemp15.Add(1);
+        divMedLowerTemp15.Add(3);
+        divMedLowerTemp15.Add(13);
+        divMedLowerTemp15.Add(39);
+
+        divMedLower.Add(divMedLowerTemp15);
+
+        //40
+        divMedLowerTemp16.Add(1);
+        divMedLowerTemp16.Add(2);
+        divMedLowerTemp16.Add(4);
+        divMedLowerTemp16.Add(5);
+        divMedLowerTemp16.Add(8);
+        divMedLowerTemp16.Add(10);
+        divMedLowerTemp16.Add(20);
+        divMedLowerTemp16.Add(40);
+
+        divMedLower.Add(divMedLowerTemp16);
+
+        //42
+        divMedLowerTemp17.Add(1);
+        divMedLowerTemp17.Add(2);
+        divMedLowerTemp17.Add(3);
+        divMedLowerTemp17.Add(6);
+        divMedLowerTemp17.Add(7);
+        divMedLowerTemp17.Add(14);
+        divMedLowerTemp17.Add(21);
+        divMedLowerTemp17.Add(42);
+
+        divMedLower.Add(divMedLowerTemp17);
+
+        //44
+        divMedLowerTemp18.Add(1);
+        divMedLowerTemp18.Add(2);
+        divMedLowerTemp18.Add(4);
+        divMedLowerTemp18.Add(11);
+        divMedLowerTemp18.Add(22);
+        divMedLowerTemp18.Add(44);
+
+        divMedLower.Add(divMedLowerTemp18);
+
+        //45
+        divMedLowerTemp19.Add(1);
+        divMedLowerTemp19.Add(3);
+        divMedLowerTemp19.Add(5);
+        divMedLowerTemp19.Add(9);
+        divMedLowerTemp19.Add(15);
+        divMedLowerTemp19.Add(45);
+
+        divMedLower.Add(divMedLowerTemp19);
+
+        //46
+        divMedLowerTemp20.Add(1);
+        divMedLowerTemp20.Add(2);
+        divMedLowerTemp20.Add(23);
+        divMedLowerTemp20.Add(46);
+
+        divMedLower.Add(divMedLowerTemp20);
+
+        //48
+        divMedLowerTemp21.Add(1);
+        divMedLowerTemp21.Add(2);
+        divMedLowerTemp21.Add(3);
+        divMedLowerTemp21.Add(4);
+        divMedLowerTemp21.Add(6);
+        divMedLowerTemp21.Add(8);
+        divMedLowerTemp21.Add(12);
+        divMedLowerTemp21.Add(16);
+        divMedLowerTemp21.Add(24);
+        divMedLowerTemp21.Add(48);
+
+        divMedLower.Add(divMedLowerTemp21);
+
+        //49
+        divMedLowerTemp22.Add(1);
+        divMedLowerTemp22.Add(7);
+        divMedLowerTemp22.Add(49);
+
+        divMedLower.Add(divMedLowerTemp22);
+
+        //50
+        divMedLowerTemp23.Add(1);
+        divMedLowerTemp23.Add(2);
+        divMedLowerTemp23.Add(5);
+        divMedLowerTemp23.Add(10);
+        divMedLowerTemp23.Add(25);
+        divMedLowerTemp23.Add(50);
+
+        divMedLower.Add(divMedLowerTemp23);
+
+        //-----Hard Lists
     }
 
 }

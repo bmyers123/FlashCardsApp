@@ -24,11 +24,14 @@ public class SceneLoad : MonoBehaviour
     public Image mediumBG;
     public Image hardBG;
 
-    //Currently unused bools
-    bool addEquations;
-    bool subEquations;
-    bool multEquations;
-    bool divEquations;
+    //Warning Button
+    public GameObject equationCanvasWarningButton;
+
+    //Check Box Refresh Variables
+    int addRefresh;
+    int subRefresh;
+    int multRefresh;
+    int divRefresh;
 
     private void Awake()
     {
@@ -79,7 +82,8 @@ public class SceneLoad : MonoBehaviour
         }
     }
 
-    //Scene Loading On Play
+    //=============================================================================================================================
+    //Menu Changes
 
     //-----Load Play Scene
     public void playButtonClicked()
@@ -90,8 +94,6 @@ public class SceneLoad : MonoBehaviour
         playerProfileCanvas.gameObject.SetActive(false);
         equationsCanvas.gameObject.SetActive(false);
     }
-
-    //Menu Changes
 
     //-----Load Options
     public void loadOptionsMenu()
@@ -113,6 +115,28 @@ public class SceneLoad : MonoBehaviour
         equationsCanvas.gameObject.SetActive(false);
     }
 
+    public void loadMainMenuFromEquations()
+    {
+        addRefresh = PlayerPrefs.GetInt("Addition");
+        subRefresh = PlayerPrefs.GetInt("Subtraction");
+        multRefresh = PlayerPrefs.GetInt("Multiplication");
+        divRefresh = PlayerPrefs.GetInt("Division");
+
+        if (addRefresh == 0 && subRefresh == 0 && multRefresh == 0 && divRefresh == 0)
+        {
+            //Display Warning "Must select an equation type"
+            equationCanvasWarning();
+        }
+        else
+        {
+            mainMenuCanvas.gameObject.SetActive(true);
+            playCanvas.gameObject.SetActive(false);
+            optionsCanvas.gameObject.SetActive(false);
+            playerProfileCanvas.gameObject.SetActive(false);
+            equationsCanvas.gameObject.SetActive(false);
+        }
+    }
+
     //-----Load Player's Profile Page
     public void loadPlayerProfile()
     {
@@ -126,6 +150,39 @@ public class SceneLoad : MonoBehaviour
     //-----Load Player's Profile Page
     public void loadEquationsMenu()
     {
+        //Refresh Check Boxes
+        //-----Get Player Pref Values upong loading into equation menu
+        addRefresh = PlayerPrefs.GetInt("Addition");
+        subRefresh = PlayerPrefs.GetInt("Subtraction");
+        multRefresh = PlayerPrefs.GetInt("Multiplication");
+        divRefresh = PlayerPrefs.GetInt("Division");
+
+        //-----Check each value, if true, display checkmark; if false, do not diplay check mark (1 == true; 0 == false)
+        if (addRefresh == 1)
+        {
+            addCheckMark.gameObject.SetActive(true);
+        }
+        else {addCheckMark.gameObject.SetActive(false);}
+
+        if (subRefresh == 1)
+        {
+            subCheckMark.gameObject.SetActive(true);
+        }
+        else { subCheckMark.gameObject.SetActive(false); }
+
+        if (multRefresh == 1)
+        {
+            multCheckMark.gameObject.SetActive(true);
+        }
+        else { multCheckMark.gameObject.SetActive(false); }
+
+        if (divRefresh == 1)
+        {
+            divCheckMark.gameObject.SetActive(true);
+        }
+        else { divCheckMark.gameObject.SetActive(false); }
+
+        //Load Equations Scene Canvas
         equationsCanvas.gameObject.SetActive(true);
         playCanvas.gameObject.SetActive(false);
         playerProfileCanvas.gameObject.SetActive(false);
@@ -133,6 +190,7 @@ public class SceneLoad : MonoBehaviour
         optionsCanvas.gameObject.SetActive(false);
     }
 
+    //=============================================================================================================================
     //Difficulty Setting Functions
 
     //-----Easy
@@ -165,8 +223,9 @@ public class SceneLoad : MonoBehaviour
         PlayerPrefs.SetInt("GameDifficulty", 2);
     }
 
-
+    //=============================================================================================================================
     //Equation Type Selection Toggles (using PlayerPrefs)
+
     //-----Addition
     public void toggleAddition()
     {
@@ -174,13 +233,13 @@ public class SceneLoad : MonoBehaviour
         {
             PlayerPrefs.SetInt("Addition", 1);
             addCheckMark.gameObject.SetActive(true);
-            Debug.Log("Add True");
+            //Debug.Log("Add True");
         }
         else if (PlayerPrefs.GetInt("Addition") == 1)
         {
             PlayerPrefs.SetInt("Addition", 0);
             addCheckMark.gameObject.SetActive(false);
-            Debug.Log("Add False");
+            //Debug.Log("Add False");
         }
     }
 
@@ -191,13 +250,13 @@ public class SceneLoad : MonoBehaviour
         {
             PlayerPrefs.SetInt("Subtraction", 1);
             subCheckMark.gameObject.SetActive(true);
-            Debug.Log("Sub True");
+            //Debug.Log("Sub True");
         }
         else if (PlayerPrefs.GetInt("Subtraction") == 1)
         {
             PlayerPrefs.SetInt("Subtraction", 0);
             subCheckMark.gameObject.SetActive(false);
-            Debug.Log("Sub False");
+            //Debug.Log("Sub False");
         }
     }
 
@@ -208,13 +267,13 @@ public class SceneLoad : MonoBehaviour
         {
             PlayerPrefs.SetInt("Multiplication", 1);
             multCheckMark.gameObject.SetActive(true);
-            Debug.Log("Mult True");
+            //Debug.Log("Mult True");
         }
         else if (PlayerPrefs.GetInt("Multiplication") == 1)
         {
             PlayerPrefs.SetInt("Multiplication", 0);
             multCheckMark.gameObject.SetActive(false);
-            Debug.Log("Mult False");
+            //Debug.Log("Mult False");
         }
     }
 
@@ -225,76 +284,28 @@ public class SceneLoad : MonoBehaviour
         {
             PlayerPrefs.SetInt("Division", 1);
             divCheckMark.gameObject.SetActive(true);
-            Debug.Log("Div True");
+            //Debug.Log("Div True");
         }
         else if (PlayerPrefs.GetInt("Division") == 1)
         {
             PlayerPrefs.SetInt("Division", 0);
             divCheckMark.gameObject.SetActive(false);
-            Debug.Log("Div False");
+            //Debug.Log("Div False");
         }
     }
 
-    /*
-    //Equation Type Selection Toggles (using bools)
-    //-----Addition
-    public void toggleAddition()
+    //Equation Warning Functions
+
+    //-----Display warning if needed
+    void equationCanvasWarning()
     {
-        if (addEquations == false)
-        {
-            PlayerPrefs.SetInt("Addition", 1);
-            addEquations = true;
-        }
-        else if (addEquations == true)
-        {
-            PlayerPrefs.SetInt("Addition", 0);
-            addEquations = false;
-        }
+        equationCanvasWarningButton.gameObject.SetActive(true);
     }
 
-    //-----Subtraction
-    public void toggleSubtraction()
+    //-----Remove warning upon click
+    public void removeEquationWarning()
     {
-        if (subEquations == false)
-        {
-            PlayerPrefs.SetInt("Subtraction", 1);
-            subEquations = true;
-        }
-        else if (subEquations == true)
-        {
-            PlayerPrefs.SetInt("Subtraction", 0);
-            subEquations = false;
-        }
+        equationCanvasWarningButton.gameObject.SetActive(false);
     }
 
-    //-----Multiplication
-    public void toggleMultiplication()
-    {
-        if (multEquations == false)
-        {
-            PlayerPrefs.SetInt("Multiplication", 1);
-            multEquations = true;
-        }
-        else if (multEquations == true)
-        {
-            PlayerPrefs.SetInt("Multiplication", 0);
-            multEquations = false;
-        }
-    }
-
-    //-----Division
-    public void toggleDivision()
-    {
-        if (divEquations == false)
-        {
-            PlayerPrefs.SetInt("Division", 1);
-            divEquations = true;
-        }
-        else if (divEquations == true)
-        {
-            PlayerPrefs.SetInt("Division", 0);
-            divEquations = false;
-        }
-    }
-    */
 }
