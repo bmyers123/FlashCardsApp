@@ -17,6 +17,7 @@ public class RandomEquation : MonoBehaviour
     int randomNum1;
     int randomNum2;
     int randomNum3;
+    int randomNum4;
 
     //Answer to randomly generated question
     int addAnswer;
@@ -384,13 +385,21 @@ public class RandomEquation : MonoBehaviour
         //-----Hard Question: division b/w 3 random numbers from 100 to 500; 10 to 50; 1 to 10
         if (PlayerPrefs.GetInt("GameDifficulty") == 2)
         {
-            randomNum1 = Random.Range(100, 501);
-            randomNum2 = Random.Range(10, 51);
-            randomNum3 = Random.Range(1, 11);
+            randomNum1 = Random.Range(0, divEasyUpper.Count);
+            randomNum2 = Random.Range(0, divEasyLower[randomNum1].Count);
 
-            divAnswer = (randomNum1 / randomNum2) / randomNum3;
+            randomNum2 = divEasyLower[randomNum1][randomNum2];
+            randomNum1 = divEasyUpper[randomNum1];
 
-            equationText.text = "(" + randomNum1 + " / " + randomNum2 + ")" + " / " + randomNum3;
+            randomNum3 = Random.Range(0, divMedUpper.Count);
+            randomNum4 = Random.Range(0, divMedLower[randomNum3].Count);
+
+            randomNum4 = divMedLower[randomNum3][randomNum4];
+            randomNum3 = divMedUpper[randomNum3];
+
+            divAnswer = (randomNum1 / randomNum2) * (randomNum3 / randomNum4);
+
+            equationText.text = "(" + randomNum1 + "/" + randomNum2 + ")" + "x" + "(" + randomNum3 + "/" + randomNum4 + ")";
         }
     }
 
